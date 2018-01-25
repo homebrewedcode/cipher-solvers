@@ -1,0 +1,37 @@
+<!-- Example row of columns -->
+<div class="row">
+  <div class="well well-lg" style="background: #6c36bc; margin-top: 20px; color: white; text-shadow: 2px 2px 2px black;">
+      <h1 class="text-center">Subsitution Cipher Solver</h1>
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Choose Decode or Encode depending on the desired operation.</li>
+        <li>Insert the desired alphabet to Decode or Encode, depending on your selected operation.  This must be exactly 26 characters.  Use a * character for any unkown values.</li>
+        <li>Insert your Ciphertext or Plaintext message in the appropriately labled textbox below, depending on the desired operation.</li>
+        <li>Submit the form.</li>
+      </ul>
+  </div>
+  <form action="/random" method="post">
+    <button type="submit" class="btn btn-primary btn-lg" style="background: #6c36bc; color: white; text-shadow: 2px 2px 2px black;">Randomize Alphabet</button>
+  </form>
+  <br>                
+  <form action="/" method="post">
+    <div class="form-group">
+      <label class="radio-inline"><input type="radio" name="operation" value="decode" <% if @checked_operation == "decode" %> checked <% end %>>Decode</label>
+      <label class="radio-inline"><input type="radio" name="operation" value="encode"<% if @checked_operation == "encode" %> checked <% end %>>Encode</label>
+      <br>
+      <br>    
+      <label for="alphabet">Alphabet</label>
+      <input class="form-control" type="text" id="alphabet" name="alphabet" value="<%= @alphabet %> ">
+      <br>
+      <label for="ciphertext">Cipher Text</label>            
+      <% @evaluation ? ciphertext = @evaluation.ciphertext : ciphertext = '' %>
+      <textarea class="form-control" rows="4" id="ciphertext" name="ciphertext" placeholder="Encoded text here..."><%= ciphertext %></textarea>
+      <br>
+      <label for="plaintext">Plain Text</label>   
+      <% @evaluation ? plaintext = @evaluation.plaintext : plaintext = '' %>
+      <textarea class="form-control" rows="4" id="ciphertext" name="plaintext" placeholder="Encoded text here..."><%= plaintext %></textarea>
+      <br>      
+    </div>          
+    <button type="submit" class="btn btn-primary btn-lg btn-block" style="background: #6c36bc; color: white; text-shadow: 2px 2px 2px black;">Submit</button>
+  </form>  
+</div>

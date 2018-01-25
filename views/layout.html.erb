@@ -21,7 +21,7 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
     <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background: #6c36bc;">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,47 +30,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Decoder</a>
+          <a class="navbar-brand" href="#" style="color: white; text-shadow: 2px 2px 2px black;">Cipher Solvers</a>
         </div>
       </div>
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="text-center">Substitution Algorithm Decoder</h1>
-        <p class="text-center">A tool to decrypt text encoded with subsitution a monoalphabet substitution algorithm.</p>        
-      </div>
-    </div>
+
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="well well-lg">
-            <p class="lead text-center">Insert the subtitution alphabet as a single string in the New Alphabet box, paste the encrypted string in the Cipher Text box, then submit the form to decode the message</p>
-        </div>                
-        <form action="/" method="post">
-          <div class="form-group">
-            <label for="alphabet">New Alphabet</label>
-            <input class="form-control" type="text" id="alphabet" name="encode_alphabet"> 
-            <label for="plaintext">Cipher Text</label>            
-            <% @evaluation ? name = @evaluation.ciphertext : name = '' %>
-            <textarea class="form-control" rows="4" id="ciphertext" name="ciphertext" placeholder="Encoded text here..."><%= name %></textarea>
-          </div>          
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-        </form>
-        <div class="col-md-12">
-        <h2 class="text-center">Decrypted Message</h2>
-        <div class="well well-lg">
-          <% if @evaluation %>
-            <p><%= @evaluation.plaintext %></p>
-          <% else %>           
-            <p>Decrypted message here...</p>
-          <% end %>
-          </div>
+      <% flash.keys.each do |type| %>
+        <div class="alert alert-danger" role="alert" style="margin-top: 20px;">
+          <%= flash[type] %>
         </div>
-      </div>
-
+      <% end %>
+      <%= yield %>
+        
       <hr>
 
       <footer>

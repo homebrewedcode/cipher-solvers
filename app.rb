@@ -31,11 +31,12 @@ post '/' do
             flash.now[:error] = "Make sure that the proper fields are filled in and formatted correctly."  
             erb :'index.html', { layout: :'layout.html' } 
         end              
-
+    # verify the needed parameters are set, and trim / scrub the values    
     elsif params[:operation] == "encode" and params[:plaintext]
         plaintext = Helper.scrub_input(params[:plaintext]).strip
         encode_alphabet = params[:alphabet].strip      
-
+        
+        # do some basic validation of the alphabet (length and alphanumeric
         if Helper.validate_alphabet(encode_alphabet)
             @evaluation = Decode.new(plaintext, '', encode_alphabet)
             @evaluation.encode()

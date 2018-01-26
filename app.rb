@@ -55,6 +55,7 @@ post '/' do
 end
 
 post '/random' do
+    @checked_operation = "encode"
     @alphabet = Helper.randomize_alphabet
     erb :'index.html', { layout: :'layout.html' }
 end

@@ -63,8 +63,8 @@ post '/random' do
 end
 
 get '/fuzzy-hash' do
-    
-    erb :'upload.html', { layout: :'layout.html' } 
+    @result = false
+    erb :'fuzzy-hash.html', { layout: :'layout.html' } 
 end
 
 post '/fuzzy-hash' do
@@ -75,15 +75,12 @@ post '/fuzzy-hash' do
     
         hash1 = Ssdeep.from_file("#{file1.path}")
         hash2 = Ssdeep.from_file("#{file2.path}")
-        result = Ssdeep.compare(hash1, hash2)
-        
-        "#{hash1} : #{file1.path}"
-        "#{hash2} : #{file1.path}"
-        "#{result}"
+        @result = Ssdeep.compare(hash1, hash2)
+
     ensure
         file1.close!
         file2.close!
     end
-    
+    erb :'fuzzy-hash.html', { layout: :'layout.html' } 
 end
     

@@ -1,2 +1,0 @@
-ssdeep,1.0--blocksize:hash:hash,filename
-3:LbU4VhNoJMYkrgkT/CwF/mK/JmG2k/FUEJzxyEIGEWX/7J+TVIJJaQTv:3dhNoKgkewevGDygzAQEW1c2bj,"hosts"

@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/flash'
-require 'ssdeep'
 require 'tempfile'
 require_relative 'models/decode.rb'
 require_relative 'models/helper.rb'
@@ -68,19 +67,33 @@ get '/fuzzy-hash' do
 end
 
 post '/fuzzy-hash' do
-       
-    file1 = params[:file1][:tempfile]
-    file2 = params[:file2][:tempfile]
-    begin
     
-        hash1 = Ssdeep.from_file("#{file1.path}")
-        hash2 = Ssdeep.from_file("#{file2.path}")
-        @result = Ssdeep.compare(hash1, hash2)
+    if params[:file1] and params[:file2]
+        file1 = params[:file1][:tempfile]
+        file2 = params[:file2][:tempfile]
+        
+        begin
+    
+            hash1 = `ssdeep -b #{file1.path} > hashes.txt`
+            @result = `ssdeep -b -m hashes.txt #{file2.path}`
+            
+            if @result.empty?
+                @result = "0"
+            else
+                @result = @result.slice(-7..-2).gsub(/[a-zA-Z() ]/, '') if @result
+            end
 
-    ensure
-        file1.close!
-        file2.close!
+        ensure
+        
+            file1.close!
+            file2.close!
+        end
+        
+        erb :'fuzzy-hash.html', { layout: :'layout.html' } 
+    else
+        flash.now[:error] = "Make sure that you have entered files in both fields."
+        erb :'fuzzy-hash.html', { layout: :'layout.html' } 
     end
-    erb :'fuzzy-hash.html', { layout: :'layout.html' } 
+    
 end
     

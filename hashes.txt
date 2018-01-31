@@ -1,0 +1,2 @@
+ssdeep,1.0--blocksize:hash:hash,filename
+384:H1xMuH1xMuH1xMuH1xMuH1xMuH1xMuH1xMuH1xMuH1xMuH1xl:/Z/Z/Z/Z/Z/Z/Z/Z/Z/l,"RackMultipart20180131-11146-1lzlgs5.txt"

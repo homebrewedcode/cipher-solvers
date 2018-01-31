@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'tempfile'
 require_relative 'models/decode.rb'

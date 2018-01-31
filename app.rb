@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/flash'
+require 'ssdeep'
+require 'tempfile'
 require_relative 'models/decode.rb'
 require_relative 'models/helper.rb'
 
@@ -58,5 +60,30 @@ post '/random' do
     @checked_operation = "encode"
     @alphabet = Helper.randomize_alphabet
     erb :'index.html', { layout: :'layout.html' }
+end
+
+get '/fuzzy-hash' do
+    
+    erb :'upload.html', { layout: :'layout.html' } 
+end
+
+post '/fuzzy-hash' do
+       
+    file1 = params[:file1][:tempfile]
+    file2 = params[:file2][:tempfile]
+    begin
+    
+        hash1 = Ssdeep.from_file("#{file1.path}")
+        hash2 = Ssdeep.from_file("#{file2.path}")
+        result = Ssdeep.compare(hash1, hash2)
+        
+        "#{hash1} : #{file1.path}"
+        "#{hash2} : #{file1.path}"
+        "#{result}"
+    ensure
+        file1.close!
+        file2.close!
+    end
+    
 end
     
